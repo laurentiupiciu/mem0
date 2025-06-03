@@ -140,15 +140,15 @@ def get_default_memory_config():
         "vector_store": {
             "provider": "qdrant",
             "config": {
-                "collection_name": "openmemory",
-                "host": "mem0_store",
+                "collection_name": "ressi",  # TODO
+                "host": "localhost",
                 "port": 6333,
             }
         },
         "llm": {
             "provider": "openai",
             "config": {
-                "model": "gpt-4o-mini",
+                "model": "gpt-4.1-mini",
                 "temperature": 0.1,
                 "max_tokens": 2000,
                 "api_key": "env:OPENAI_API_KEY"

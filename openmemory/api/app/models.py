@@ -43,7 +43,7 @@ class App(Base):
     __tablename__ = "apps"
     id = Column(UUID, primary_key=True, default=lambda: uuid.uuid4())
     owner_id = Column(UUID, ForeignKey("users.id"), nullable=False, index=True)
-    name = Column(String, unique=True, nullable=False, index=True)
+    name = Column(String, nullable=False, index=True)
     description = Column(String)
     metadata_ = Column('metadata', JSON, default=dict)
     is_active = Column(Boolean, default=True, index=True)
@@ -54,6 +54,10 @@ class App(Base):
 
     owner = relationship("User", back_populates="apps")
     memories = relationship("Memory", back_populates="app")
+    
+    __table_args__ = (
+        Index('idx_app_name_owner', 'name', 'owner_id', unique=True),
+    )
 
 
 class Config(Base):
