@@ -11,6 +11,8 @@ import { constants } from "@/components/shared/source-app";
 import { App } from "@/store/appsSlice";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 interface AppCardProps {
   app: App;
@@ -18,6 +20,7 @@ interface AppCardProps {
 
 export function AppCard({ app }: AppCardProps) {
   const router = useRouter();
+  const userId = useSelector((state: RootState) => state.profile.userId);
   const appConfig =
     constants[app.name as keyof typeof constants] || constants.default;
   const isActive = app.is_active;
@@ -73,7 +76,7 @@ export function AppCard({ app }: AppCardProps) {
           {isActive ? "Active" : "Inactive"}
         </div>
         <div
-          onClick={() => router.push(`/apps/${app.id}`)}
+          onClick={() => router.push(userId ? `/${userId}/apps/${app.id}` : `/apps/${app.id}`)}
           className="border hover:cursor-pointer border-zinc-700 bg-zinc-950 flex items-center px-3 py-1 text-sm rounded-lg text-white p-0 hover:bg-zinc-950/50 hover:text-white"
         >
           View Details <ArrowRight className="ml-2 h-4 w-4" />

@@ -3,6 +3,8 @@ import Categories from "@/components/shared/categories";
 import Link from "next/link";
 import { constants } from "@/components/shared/source-app";
 import Image from "next/image";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 interface MemoryCardProps {
   id: string;
   content: string;
@@ -24,6 +26,7 @@ export function MemoryCard({
   app_name,
   state,
 }: MemoryCardProps) {
+  const userId = useSelector((state: RootState) => state.profile.userId);
   return (
     <div className="rounded-lg border border-zinc-800 bg-zinc-900 overflow-hidden">
       <div className="p-4">
@@ -80,7 +83,7 @@ export function MemoryCard({
 
           {!app_name && (
             <Link
-              href={`/memory/${id}`}
+              href={userId ? `/${userId}/memory/${id}` : `/memory/${id}`}
               className="hover:cursor-pointer bg-zinc-800 hover:bg-zinc-700 flex items-center px-3 py-1 text-sm rounded-lg text-white p-0 hover:text-white"
             >
               View Details

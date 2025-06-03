@@ -57,6 +57,7 @@ export function MemoryTable() {
     (state: RootState) => state.memories.selectedMemoryIds
   );
   const memories = useSelector((state: RootState) => state.memories.memories);
+  const userId = useSelector((state: RootState) => state.profile.userId);
 
   const { deleteMemories, updateMemoryState, isLoading } = useMemoriesApi();
 
@@ -103,7 +104,7 @@ export function MemoryTable() {
     selectedMemoryIds.length > 0 && selectedMemoryIds.length < memories.length;
 
   const handleMemoryClick = (id: string) => {
-    router.push(`/memory/${id}`);
+    router.push(userId ? `/${userId}/memory/${id}` : `/memory/${id}`);
   };
 
   return (

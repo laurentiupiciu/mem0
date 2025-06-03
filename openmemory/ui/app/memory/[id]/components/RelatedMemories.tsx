@@ -15,6 +15,7 @@ export function RelatedMemories({ memoryId }: RelatedMemoriesProps) {
   const relatedMemories = useSelector(
     (state: RootState) => state.memories.relatedMemories
   );
+  const userId = useSelector((state: RootState) => state.profile.userId);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -58,7 +59,7 @@ export function RelatedMemories({ memoryId }: RelatedMemoriesProps) {
             key={memory.id}
             className="border-l-2 border-zinc-800 pl-6 py-1 hover:bg-zinc-700/10 transition-colors cursor-pointer"
           >
-            <Link href={`/memory/${memory.id}`}>
+            <Link href={userId ? `/${userId}/memory/${memory.id}` : `/memory/${memory.id}`}>
               <h3 className="font-medium mb-3">{memory.memory}</h3>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
